@@ -1,18 +1,20 @@
 # Build stage
-FROM maven:3.9-eclipse-temurin-17-alpine AS build
+FROM node:24-alpine AS build
 WORKDIR /app
 
-COPY pom.xml .
-RUN mvn dependency:go-offline -B
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
 COPY src ./src
-RUN mvn package -DskipTests -B
 
 # Run stage
-FROM eclipse-temurin:17-jre-alpine
+FROM node:24-alpine
 WORKDIR /app
+ENV NODE_ENV=production
 
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/src ./src
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["node", "src/app.js"]

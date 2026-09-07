@@ -1,0 +1,31 @@
+{
+  "name": "jwt-auth-service",
+  "version": "1.0.0",
+  "description": "JWT authentication service with short-lived access tokens and rotating, revocable refresh tokens",
+  "main": "src/app.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "node --test --test-concurrency=1 \"test/**/*.test.js\"",
+    "coverage": "node --test --test-concurrency=1 --experimental-test-coverage \"test/**/*.test.js\""
+  },
+  "keywords": [
+    "jwt",
+    "express",
+    "authentication",
+    "refresh-token"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.1"
+  }
+}

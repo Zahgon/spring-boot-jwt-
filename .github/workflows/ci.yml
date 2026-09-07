@@ -12,12 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v5.7.0
+      - name: Set up Node 24
+        uses: actions/setup-node@v4
         with:
-          java-version: '17'
-          distribution: temurin
-          cache: maven
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Run tests
-        run: ./mvnw -B test
+        run: npm test
